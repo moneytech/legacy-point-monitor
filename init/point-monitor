@@ -1,0 +1,22 @@
+#!/sbin/openrc-run
+
+asuser=nobody
+appname=point-monitor
+exe=/usr/local/bin/monitor_shm
+pidfile=/var/run/$appname.pid
+
+depend() {
+before point-installer
+}
+
+start() {
+  ebegin "Starting $appname"
+  start-stop-daemon --start --background --quiet --chdir "/tmp" --user "$asuser" --make-pidfile --pidfile "$pidfile" --exec "$exe"
+  eend $?
+}
+
+stop() {
+  ebegin "Stopping $appname"
+  start-stop-daemon --stop --signal 3 --user "$asuser" --pidfile "$pidfile" --exec "$exe"
+  eend $?
+}

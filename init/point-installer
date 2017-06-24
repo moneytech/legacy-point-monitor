@@ -1,0 +1,23 @@
+#!/sbin/openrc-run
+
+asuser=nobody
+appname=point-installer
+exe=/usr/local/bin/install_data
+data=/etc/point/points.dat
+pidfile=/var/run/$appname.pid
+
+depend() {
+after point-monitor
+}
+
+start() {
+  ebegin "Starting $appname"
+  start-stop-daemon --start --background --quiet --chdir "/tmp" --user "$asuser" --make-pidfile --pidfile "$pidfile" --exec "$exe" -- "$data"
+  eend $?
+}
+
+stop() {
+  ebegin "Stopping $appname"
+  start-stop-daemon --stop --signal 3 --user "$asuser" --pidfile "$pidfile" --exec "$exe"
+  eend $?
+}
