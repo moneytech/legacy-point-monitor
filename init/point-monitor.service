@@ -1,0 +1,10 @@
+[Unit]
+Description=Point monitor
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/monitor_shm
+ExecStop=/usr/bin/pkill -3 -f /usr/local/bin/monitor_shm
+
+[Install]
+WantedBy=default.target

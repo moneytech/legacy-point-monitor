@@ -1,3 +1,7 @@
+archive
+./pointmon
+./pointmon.tar.gz
+
 # Prerequisites
 *.d
 

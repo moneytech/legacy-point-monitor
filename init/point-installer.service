@@ -1,0 +1,10 @@
+[Unit]
+Description=Point installer
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/install_data /etc/point/points.dat
+ExecStop=/usr/bin/pkill -3 -f /usr/local/bin/install_data
+
+[Install]
+WantedBy=default.target
